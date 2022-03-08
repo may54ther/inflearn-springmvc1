@@ -13,6 +13,6 @@ public class OldController implements Controller { //HandlerAdapter: SimpleContr
     @Override
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         System.out.println("oldController.handleRequest");
-        return null;
+        return new ModelAndView("new-form");
     }
 }
