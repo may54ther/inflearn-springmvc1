@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class MemberListControllerV1 implements ControllerV1 {
-
     private MemberRepository memberRepository = MemberRepository.getInstance();
 
     @Override
