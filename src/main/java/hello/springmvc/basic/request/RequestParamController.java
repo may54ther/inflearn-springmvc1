@@ -100,4 +100,17 @@ public class RequestParamController {
         log.info("username={}, age={}", username, age);
         return "ok";
     }
+
+    /**
+     * MEMO: @RequestParam Map, MultiValueMap
+     * Map(key=value)
+     * MultiValueMap(key=[value1, value2, ...]
+     * - 예) username=[kim, lee, park], age=[21]
+     * */
+    @ResponseBody
+    @RequestMapping("/request-param-map")
+    public String requestParamMap(@RequestParam Map<String, Object> paramMap) {
+        log.info("username={}, age={}", paramMap.get("username"), paramMap.get("age"));
+        return "ok";
+    }
 }
