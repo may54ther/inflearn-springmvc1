@@ -88,4 +88,16 @@ public class RequestParamController {
         log.info("username={}, age={}", username, age);
         return "ok";
     }
+
+    /**
+     * MEMO: @RequestParam.defaultValue
+     * 파라미터의 기본값을 설정, 빈 문자열("")도 기본값으로 치환됨
+     * */
+    @ResponseBody
+    @RequestMapping("/request-param-default")
+    public String requestParamDefault(@RequestParam(required = true, defaultValue = "guest") String username,
+                                      @RequestParam(required = false, defaultValue = "-1") Integer age) {
+        log.info("username={}, age={}", username, age);
+        return "ok";
+    }
 }
