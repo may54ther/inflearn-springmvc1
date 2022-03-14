@@ -72,4 +72,20 @@ public class RequestParamController {
         log.info("username={}, age={}", username, age);
         return "ok";
     }
+
+    /**
+     * MEMO: @RequestParam.required
+     * `/request-param`
+     * - 필수 파라미터인 username 반환 값이 null -> 500 에러 발생
+     * - int 형식은 null 입력 X -> age 형식을 Integer 로 지정 (또는 @RequestParam.defaultValue 사용)
+     * `/request-param?username=`
+     * - 빈문자("")로 인식되어 통과("", null 차이)
+     * */
+    @ResponseBody
+    @RequestMapping("/request-param-required")
+    public String requestParamRequired(@RequestParam(required = true) String username,
+                                       @RequestParam(required = false) Integer age) {
+        log.info("username={}, age={}", username, age);
+        return "ok";
+    }
 }
