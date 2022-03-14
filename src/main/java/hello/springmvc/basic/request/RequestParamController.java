@@ -113,4 +113,30 @@ public class RequestParamController {
         log.info("username={}, age={}", paramMap.get("username"), paramMap.get("age"));
         return "ok";
     }
+
+    /**
+     * MEMO: modelAttributeV1
+     * @ModelAttribute 사용
+     * - model.addAttribute(helloData) 코드도 함께 자동 적용, 뒤에 model 설명할 때 자세히 설명
+     * */
+    @ResponseBody
+    @RequestMapping("/model-attribute-v1")
+    public String modelAttributeV1(@ModelAttribute HelloData helloData) {
+        log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+        return "ok";
+    }
+
+    /**
+     * MEMO: modelAttributeV2
+     * @ModelAttribute 생략 가능
+     * => @RequestParam 역시 생략 가능하므로 헷갈리지 않게 아래와 같이 규칙 적용
+     * - String, int 같은 단순 타입 = @RequestParam
+     * - 나머지 = @ModelAttribute (argument resolver 로 지정해둔 타입 외)
+     * */
+    @ResponseBody
+    @RequestMapping("/model-attribute-v2")
+    public String modelAttributeV2(HelloData helloData) {
+        log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+        return "ok";
+    }
 }
