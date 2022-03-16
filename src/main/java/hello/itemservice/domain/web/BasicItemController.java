@@ -65,16 +65,21 @@ public class BasicItemController {
     //     itemRepository.save(item);
     //     return "basic/item";
     // }
-    // MEMO: [권장] add-item-v3 -> @ModelAttribute() 값 생략
-    public String add(@ModelAttribute Item item) {
-        itemRepository.save(item);
-        return "basic/item";
-    }
+    // MEMO: add-item-v3 -> @ModelAttribute() 값 생략
+    // public String add(@ModelAttribute Item item) {
+    //     itemRepository.save(item);
+    //     return "basic/item";
+    // }
     // MEMO: add-item-v4 -> @ModelAttribute 생략
     // public String add(@ModelAttribute Item item) {
     //     itemRepository.save(item);
     //     return "basic/item";
     // }
+    // MEMO: [권장] add-item-v5 -> v3 버전에서 redirect 기능 추가
+    public String add(@ModelAttribute Item item) {
+        itemRepository.save(item);
+        return "redirect:/basic/items/" + item.getId();
+    }
 
     /**
      * MEMO: 상품 수정
@@ -95,14 +100,14 @@ public class BasicItemController {
         item.setItemName(updateParam.getItemName());
         itemRepository.update(itemId, updateParam);
         return "redirect:/basic/items/{itemId}";
-        }
-
-        //테스트용 데이터
-        @PostConstruct
-        public void init () {
-            itemRepository.save(new Item("새우깡", 1500, 3));
-            itemRepository.save(new Item("감자깡", 1500, 5));
-            itemRepository.save(new Item("옥수수깡", 2000, 5));
-            itemRepository.save(new Item("고구마깡", 2000, 1));
-        }
     }
+
+    //테스트용 데이터
+    @PostConstruct
+    public void init() {
+        itemRepository.save(new Item("새우깡", 1500, 3));
+        itemRepository.save(new Item("감자깡", 1500, 5));
+        itemRepository.save(new Item("옥수수깡", 2000, 5));
+        itemRepository.save(new Item("고구마깡", 2000, 1));
+    }
+}
