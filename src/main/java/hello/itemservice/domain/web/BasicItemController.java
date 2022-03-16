@@ -17,6 +17,14 @@ public class BasicItemController {
 
     private final ItemRepository itemRepository;
 
+    // MEMO: 상품 목록
+    @GetMapping
+    public String items(Model model) {
+        List<Item> items = itemRepository.findAll();
+        model.addAttribute("items", items);
+        return "basic/items";
+    }
+
     //테스트용 데이터
     @PostConstruct
     public void init() {
