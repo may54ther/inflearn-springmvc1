@@ -76,6 +76,27 @@ public class BasicItemController {
     //     return "basic/item";
     // }
 
+    /**
+     * MEMO: 상품 수정
+     * 요청 주소(URL)가 같아도 메서드 방식에 따라 기능을 구분할 수 있다.
+     * @GetMapping() : 상품 수정 폼  (뷰 템플릿 반환)
+     * @PostMapping() : 상품 수정 처리(폼 데이터 처리)
+     */
+    @GetMapping("/{itemId}/edit")
+    public String editForm(@PathVariable Long itemId, Model model) {
+        Item item = itemRepository.findById(itemId);
+        model.addAttribute("item", item);
+        return "basic/editForm";
+    }
+
+    @PostMapping("/{itemId}/edit")
+    public String edit(@PathVariable Long itemId, @ModelAttribute Item updateParam) {
+        Item item = itemRepository.findById(itemId);
+        item.setItemName(updateParam.getItemName());
+        itemRepository.update(itemId, updateParam);
+        return "redirect:/basic/items/{itemId}";
+        }
+
         //테스트용 데이터
         @PostConstruct
         public void init () {
