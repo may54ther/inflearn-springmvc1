@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -75,10 +76,17 @@ public class BasicItemController {
     //     itemRepository.save(item);
     //     return "basic/item";
     // }
-    // MEMO: [권장] add-item-v5 -> v3 버전에서 redirect 기능 추가
-    public String add(@ModelAttribute Item item) {
-        itemRepository.save(item);
-        return "redirect:/basic/items/" + item.getId();
+    // MEMO: add-item-v5 -> v3 버전에서 redirect 기능 추가
+    // public String add(@ModelAttribute Item item) {
+    //     itemRepository.save(item);
+    //     return "redirect:/basic/items/" + item.getId();
+    // }
+    // MEMO: [권장] add-item-v6 -> RedirectAttributes 추가
+    public String add(@ModelAttribute Item item, RedirectAttributes redirectAttributes) {
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", savedItem.getId());
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/basic/items/{itemId}";
     }
 
     /**
